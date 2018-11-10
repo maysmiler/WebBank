@@ -48,7 +48,6 @@ EntityManagerFactory emf ;
                Account account = accountCtrl.findAccount(accountsession.getAccountid());
                List<History> history = account.getHistoryList();
                session.setAttribute("history", history);
-               session.setAttribute("message", "");
                getServletContext().getRequestDispatcher("/History.jsp").forward(request, response);
         }else{
         session.setAttribute("message", "accountId wrong");

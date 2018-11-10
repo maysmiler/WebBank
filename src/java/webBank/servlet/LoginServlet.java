@@ -41,8 +41,7 @@ public class LoginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
-        request.setAttribute("message", "Please Enter Account Id and Pin");
+        HttpSession session = request.getSession(true);
         String idtext = request.getParameter("id");
         String pintext = request.getParameter("pin");
         if (idtext != null && pintext != null) {
@@ -51,10 +50,7 @@ public class LoginServlet extends HttpServlet {
             AccountJpaController accountJpaCtrl = new AccountJpaController(utx, emf);
             Account account = accountJpaCtrl.findAccount(id);
             if (account != null) {
-                if (account.getPin() == pin) {
-                    if (session==null) {
-                        session=request.getSession(true);
-                    }
+                if (account.getPin() == pin) {                   
                     session.setAttribute("account", account);
                     getServletContext().getRequestDispatcher("/MyAccount.jsp").forward(request, response);
                     return;
@@ -65,6 +61,7 @@ public class LoginServlet extends HttpServlet {
                 request.setAttribute("message", "Account Id Invalid!!!");
             }
         }
+        session.setAttribute("message", "Please Enter Account Id and Pin");
         getServletContext().getRequestDispatcher("/Login.jsp").forward(request, response);
     }
 

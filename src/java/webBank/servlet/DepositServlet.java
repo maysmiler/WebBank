@@ -49,7 +49,7 @@ public class DepositServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-        request.setAttribute("messageDepo", "Enter money to deposit");
+          session.setAttribute("messageDepo", "Enter money to deposit");
         String depotext = request.getParameter("deposit");
         Account acSession = (Account) session.getAttribute("account");
             if (acSession != null) {
@@ -77,8 +77,9 @@ public class DepositServlet extends HttpServlet {
                 } 
             
              getServletContext().getRequestDispatcher("/Deposit.jsp").forward(request, response);    
+        }else{
+          getServletContext().getRequestDispatcher("/Login.jsp").forward(request, response);
         }
-        getServletContext().getRequestDispatcher("/Login.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

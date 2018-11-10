@@ -47,7 +47,6 @@ EntityManagerFactory emf ;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
        HttpSession session = request.getSession(false);
-       request.setAttribute("messageWi","Please Enter money to withdraw");
        String withtext = request.getParameter("withdraw");
        Account acSession = (Account)session.getAttribute("account");
         if (acSession!=null) {
@@ -78,7 +77,8 @@ EntityManagerFactory emf ;
                 getServletContext().getRequestDispatcher("/Withdraw.jsp").forward(request, response);
             }
         }else{
-            getServletContext().getRequestDispatcher("/Login.jsp").forward(request, response);
+       session.setAttribute("messageWi","Please Enter money to withdraw");
+              getServletContext().getRequestDispatcher("/Login.jsp").forward(request, response);
         }
        
     }
